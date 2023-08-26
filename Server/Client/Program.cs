@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
+            List<Audit> errors = new List<Audit>();
             while (true)
             {
                 Console.WriteLine("Unesite datum za koji ocekujete podatke! (format neka bude tipa yyyy_mm_dd)");
@@ -35,6 +37,9 @@ namespace Client
                     if (File.Exists(fullPath))
                     {
                         Console.WriteLine("Pronadjena csv datoteka za zadati datum");
+                        string recvMessage = new SendCommand().sendCommand(fullPath, out errors);
+
+
                     }
                     else
                     {

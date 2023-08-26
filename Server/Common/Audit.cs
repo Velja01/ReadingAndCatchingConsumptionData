@@ -9,6 +9,18 @@ namespace Common
     public enum MESSAGETYPE { INFO, ERROR};
     public class Audit
     {
+        public Audit()
+        {
+        }
+
+        public Audit(int id, DateTime timestamp, MESSAGETYPE messageType, string message)
+        {
+            Id = id;
+            Timestamp = timestamp;
+            MessageType = messageType;
+            Message = message;
+        }
+
         public int Id { get; set; }
 
         public DateTime Timestamp { get; set; }

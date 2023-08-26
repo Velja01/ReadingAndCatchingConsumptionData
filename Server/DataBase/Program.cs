@@ -11,7 +11,13 @@ namespace DataBase
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host=new ServiceHost(typeof(DataBaseService)))
+            using (ServiceHost host=new ServiceHost(typeof(DatabaseService)))
+            {
+                host.Open();
+                Console.WriteLine("Listening");
+                Console.ReadLine();
+                host.Close();
+            }
         }
     }
 }
