@@ -15,20 +15,23 @@ namespace Client
         static void Main(string[] args)
         {
             List<Audit> errors = new List<Audit>();
-            while (true)
+            do
             {
-                Console.WriteLine("Unesite datum za koji ocekujete podatke! (format neka bude tipa yyyy_mm_dd)");
-                string inputCommand= Console.ReadLine();
-                string command=inputCommand.Trim();
+                Console.WriteLine("Unesite datum za koji ocekujete podatke! (format neka bude tipa yyyy_mm_dd) \nza izlazak komanda break!");
+                string inputCommand = Console.ReadLine();
+                string command = inputCommand.Trim();
                 //postavljanje formata datuma koji odgovara nazivu file-a
                 string pattern = @"^\d{4}_\d{2}_\d{2}$";
-                Regex regex=new Regex(pattern);
-
-                if(regex.IsMatch(command))
+                Regex regex = new Regex(pattern);
+                if (inputCommand == "break")
+                {
+                    break;
+                }
+                if (regex.IsMatch(command))
                 {
                     Console.WriteLine("String je unet u ispravnom formatu");
                     //konkatenacija kako bih dobili pun naziv fajla na osnovu unetog datuma
-                    string fileName = "results_" + command+".csv";
+                    string fileName = "results_" + command + ".csv";
                     //Definisanje relativne putanje sa CSV datotekama
                     string folderPath = @"C:\Users\veljk\Desktop\zadatak_3\primer_kreiranih_csv_datoteka";
                     //Puna putanja do foldera sa CSV datotekama
@@ -51,7 +54,7 @@ namespace Client
                     Console.WriteLine("String nije unet u ispravnom formatu");
                 }
 
-            }
+            } while (true);
         }
     }
 }

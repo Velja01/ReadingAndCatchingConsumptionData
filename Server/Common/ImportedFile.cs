@@ -1,22 +1,26 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Common
 {
+    [DataContract]
     public class ImportedFile : IImportedFile
     {
-        public int Id { get; set; } // ID fajla
+        
+        [DataMember]
         public DateTime Timestamp { get; set; } // Vreme kada je fajl uvezen
+        [DataMember]
         public string FileName { get; set; } // Naziv fajla
-        public long FileSize { get; set; } // Veličina fajla
+        [DataMember]
         public MemoryStream FileContent { get; set; } // MemoryStream koji sadrži sadržaj fajla
 
-        public ImportedFile(int id, DateTime timestamp, string fileName, long fileSize, MemoryStream fileContent)
+        public ImportedFile(DateTime timestamp, string fileName, MemoryStream fileContent)
         {
-            Id = id;
+           
             Timestamp = timestamp;
             FileName = fileName;
-            FileSize = fileSize;
+            
 
             FileContent = fileContent;
         }

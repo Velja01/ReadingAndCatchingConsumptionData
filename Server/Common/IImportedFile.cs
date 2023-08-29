@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Common
 {
     [ServiceContract]
-    internal interface IImportedFile:IDisposable
+    public interface IImportedFile:IDisposable
     {
     }
 }

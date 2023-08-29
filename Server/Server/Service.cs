@@ -2,6 +2,7 @@
 using DataBase;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -11,14 +12,14 @@ namespace Server
 {
     public class Service : IReadCSV
     {
-        public List<Load> ReadCSV(string path)
+        public List<Load> ReadCSV(MemoryStream ms)
         {
             List<Load> list = new List<Load>();
             ChannelFactory<IRead> DataBaseRead = new ChannelFactory<IRead>("DataBase");
             IRead database_channel=DataBaseRead.CreateChannel();
             List<Audit>errors=new List<Audit>();
-            list = database_channel.ReadingCsv(path, out errors);
-
+            list = database_channel.ReadingCsvFile(ms, out errors);
+            return list;
         }
     }
 }

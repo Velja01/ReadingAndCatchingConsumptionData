@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -12,6 +13,6 @@ namespace Server
     public interface IReadCSV
     {
         [OperationContract]
-        List<Load> ReadCSV(string path);
+        List<Load> ReadCSV(MemoryStream ms);
     }
 }

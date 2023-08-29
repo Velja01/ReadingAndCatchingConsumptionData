@@ -14,11 +14,11 @@ namespace Client
     {
         public string sendCommand(string path, out List<Audit> errors)
         {
-            
+            int id = 1;
             MemoryStream ms= new MemoryStream();
             string csvPath = path;
             errors = new List<Audit>();
-            ChannelFactory<IReadCSV> channelReadCSV= new ChannelFactory<IReadCSV>();
+            ChannelFactory<IReadCSV> channelReadCSV= new ChannelFactory<IReadCSV>("Server");
             IReadCSV proxy = channelReadCSV.CreateChannel();
             using (FileStream csvStream=new FileStream(csvPath, FileMode.Open, FileAccess.Read))
             {
@@ -27,10 +27,14 @@ namespace Client
             }
             ms.Position = 0;
 
-            List<Load> csvInf = proxy.ReadCSV(csvPath);
+            using (IImportedFile file = new ImportedFile(id, DateTime.Now, "csvData", ms))
+            {
 
-            return csvInf.ToString();
+                List<Load> csvInf = proxy.ReadCSV(ms);
 
+                return csvInf.ToString();
+            }
+            
         }
     }
 }
