@@ -6,3 +6,11 @@ C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAn
 C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\Common\obj\Debug\Common.exe
 C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\Common\obj\Debug\Common.pdb
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\bin\Debug\Common.exe.config
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\bin\Debug\Common.exe
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\bin\Debug\Common.pdb
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\obj\Debug\Common.csproj.SuggestedBindingRedirects.cache
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\obj\Debug\Common.exe
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Common\obj\Debug\Common.pdb

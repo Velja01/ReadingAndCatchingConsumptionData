@@ -6,12 +6,12 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace DataBase
 {
     [ServiceContract]
-    public interface ISendCommand
+    public interface IWrite
     {
         [OperationContract]
-        List<Load> sendCommand(string path);
+        string WriteInXML(List<Load> loads, List<Audit> audits);
     }
 }

@@ -13,7 +13,7 @@ namespace Common
         [DataMember]
         public string FileName { get; set; } // Naziv fajla
         [DataMember]
-        public MemoryStream FileContent { get; set; } // MemoryStream koji sadrži sadržaj fajla
+        public MemoryStream MemoryStream { get; set; } // MemoryStream koji sadrži sadržaj fajla
 
         public ImportedFile(DateTime timestamp, string fileName, MemoryStream fileContent)
         {
@@ -22,7 +22,7 @@ namespace Common
             FileName = fileName;
             
 
-            FileContent = fileContent;
+            MemoryStream = fileContent;
         }
         public void Dispose()
         {
@@ -34,10 +34,10 @@ namespace Common
             if (disposing)
             {
                 //oslobadjanje upravljanih resursa
-                if (FileContent != null)
+                if (MemoryStream != null)
                 {
-                    FileContent.Dispose();
-                    FileContent = null;
+                    MemoryStream.Dispose();
+                    MemoryStream = null;
                 }
             }
         }

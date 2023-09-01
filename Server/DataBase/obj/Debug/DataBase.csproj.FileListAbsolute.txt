@@ -10,3 +10,15 @@ C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAn
 C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\DataBase\obj\Debug\DataBase.csproj.CopyComplete
 C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\DataBase\obj\Debug\DataBase.exe
 C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\DataBase\obj\Debug\DataBase.pdb
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\bin\Debug\DataBase.exe.config
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\bin\Debug\DataBase.exe
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\bin\Debug\DataBase.pdb
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\bin\Debug\Common.exe
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\bin\Debug\Common.pdb
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\bin\Debug\Common.exe.config
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.csproj.AssemblyReference.cache
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.csproj.SuggestedBindingRedirects.cache
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.csproj.CoreCompileInputs.cache
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.csproj.CopyComplete
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.exe
+C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.pdb

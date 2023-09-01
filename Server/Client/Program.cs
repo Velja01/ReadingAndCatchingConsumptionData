@@ -40,8 +40,22 @@ namespace Client
                     if (File.Exists(fullPath))
                     {
                         Console.WriteLine("Pronadjena csv datoteka za zadati datum");
-                        string recvMessage = new SendCommand().sendCommand(fullPath, out errors);
+                        List<Load> recvMessage = new SendCommand().sendCommand(fullPath);
+                        foreach (Load l in recvMessage)
+                        {
+                            Console.WriteLine($"id:{l.Id}, FValue:{l.ForecastValue}, MValue:{l.MeasuredValue} TimeStamp:{l.Timestamp}");
+                        }
+                        if (recvMessage.Count != 0)
+                        {
+                            Console.WriteLine("Ucitani su objekti za odogovarajuci datum");
+                            Console.WriteLine("Sledi cuvanje podataka u CSV datoteke");
+                            Console.WriteLine("Podaci su sacuvani u TBL_LOAD.xml na lokaciji C:\\Users\\veljk\\Desktop\\zadatak_3\\Reading And Catching Consumption Data\\ReadingAndCatchingConsumptionData\\Server\\DataBase\\bin\\Debug\\");
 
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nisu ucitani");
+                        }
 
                     }
                     else

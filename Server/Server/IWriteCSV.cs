@@ -6,12 +6,12 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Server
 {
     [ServiceContract]
-    public interface ISendCommand
+    public interface IWriteCSV
     {
         [OperationContract]
-        List<Load> sendCommand(string path);
+        string WriteCSV(List<Load> loads, List<Audit> audits);
     }
 }
