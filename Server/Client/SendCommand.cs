@@ -14,7 +14,7 @@ namespace Client
 {
     public class SendCommand : ISendCommand
     {
-        public List<Load> sendCommand(string path)
+        public List<Load> sendCommand(string path, List<string>ucitani)
         {
 
             MemoryStream ms = new MemoryStream();
@@ -32,7 +32,7 @@ namespace Client
             using (IImportedFile file = new ImportedFile(DateTime.Now, "csvData", ms))
             {
 
-                List<Load> csvInf = proxy.ReadCSV(ms);
+                List<Load> csvInf = proxy.ReadCSV(ms, ucitani);
 
                 return csvInf;
             }

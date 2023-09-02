@@ -3,15 +3,15 @@
   <STAVKE>
     <row>
       <ID>1</ID>
-      <TIME_STAMP>2023-09-02 18:39:30.649</TIME_STAMP>
+      <TIME_STAMP>2023-09-02 20:42:46.936</TIME_STAMP>
       <MESSAGE_TYPE>Info</MESSAGE_TYPE>
       <MESSAGE>Podaci uspesno procitani i prosledjeni</MESSAGE>
     </row>
     <row>
       <ID>2</ID>
-      <TIME_STAMP>2023-09-02 18:39:45.521</TIME_STAMP>
+      <TIME_STAMP>2023-09-02 20:43:11.781</TIME_STAMP>
       <MESSAGE_TYPE>Error</MESSAGE_TYPE>
-      <MESSAGE>U bazi podataka ne postoje podaci za datum U bazi podataka ne postoje podaci za datum 2222_22_22</MESSAGE>
+      <MESSAGE>U bazi podataka ne postoje podaci za datum U bazi podataka ne postoje podaci za datum 2022_01_01</MESSAGE>
     </row>
   </STAVKE>
 </STAVKE>

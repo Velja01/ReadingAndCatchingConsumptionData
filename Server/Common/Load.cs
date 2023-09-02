@@ -6,6 +6,10 @@ namespace Common
     [DataContract]
     public class Load
     {
+        public Load()
+        {
+        }
+
         public Load(int id, DateTime timestamp, double forecastValue, double measuredValue)
         {
             Id = id;

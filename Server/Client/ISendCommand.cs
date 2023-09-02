@@ -12,7 +12,7 @@ namespace Client
     public interface ISendCommand
     {
         [OperationContract]
-        List<Load> sendCommand(string path);
+        List<Load> sendCommand(string path, List<string>ucitani);
 
         [OperationContract]
         string WriteAudit(string fileName);

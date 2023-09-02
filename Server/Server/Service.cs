@@ -12,13 +12,13 @@ namespace Server
 {
     public class Service : IReadCSV, IWriteCSV
     {
-        public List<Load> ReadCSV(MemoryStream ms)
+        public List<Load> ReadCSV(MemoryStream ms, List<string> ucitani)
         {
             List<Load> list = new List<Load>();
             ChannelFactory<IRead> DataBaseRead = new ChannelFactory<IRead>("DataBase");
             IRead database_channel=DataBaseRead.CreateChannel();
             
-            list = database_channel.ReadingCsvFile(ms);
+            list = database_channel.ReadingCsvFile(ms, ucitani);
             return list;
         }
         public string WriteCSV(MemoryStream ms)

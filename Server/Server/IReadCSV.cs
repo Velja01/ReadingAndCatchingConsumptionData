@@ -13,6 +13,6 @@ namespace Server
     public interface IReadCSV
     {
         [OperationContract]
-        List<Load> ReadCSV(MemoryStream ms);
+        List<Load> ReadCSV(MemoryStream ms, List<string>ucitani);
     }
 }

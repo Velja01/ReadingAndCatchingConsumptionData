@@ -14,8 +14,8 @@ namespace DataBase
 
     public class DatabaseService : IRead, IWrite
     {
-
-        public List<Load> ReadingCsvFile(MemoryStream csv)
+        private static int id = 1;
+        public List<Load> ReadingCsvFile(MemoryStream csv, List<string> ucitani)
         {
            
             List<Load> loads = new List<Load>();
@@ -45,6 +45,14 @@ namespace DataBase
                             double.TryParse(split[2], out double forecastValue) &&
                             double.TryParse(split[3], out double measuredValue))
                         {
+                            foreach(var s in ucitani)
+                            {
+                                if (split[0].Replace('-', '_').Contains(s))
+                                {
+                                    
+                                    return ReadFromXML(s);
+                                }
+                            }
                             // Ako su svi podaci ispravno parsirani, kreiramo Load objekat i dodajemo ga u listu.
                             Load load = new Load(line, timestamp, forecastValue, measuredValue);
                             loads.Add(load);
@@ -82,12 +90,12 @@ namespace DataBase
 
             foreach (Load l in loads)
             {
-                string isNull = "//row[TIME_STAMP='" + l.Timestamp.ToString("yyyy-MM-dd HH:mm") + "']";
+                string Row = "//row[TIME_STAMP='" + l.Timestamp.ToString("yyyy-MM-dd HH:mm") + "']";
                 XmlNode element = null;
 
                 try
                 {
-                    element = xmlDocument.SelectSingleNode(isNull);
+                    element = xmlDocument.SelectSingleNode(Row);
                 }
                 catch { }
 
@@ -117,6 +125,29 @@ namespace DataBase
 
             return "Izvrsen je upis objekata u TBL_LOAD.xml";
 
+        }
+        public List<Load>ReadFromXML(string s)
+        {
+            List<Load>loads= new List<Load>();
+            using (IImportedFile f=new DatabaseService().ReadFile(ConfigurationManager.AppSettings["DataBaseLoads"]))
+            {
+                XmlDocument xml = new XmlDocument();
+                xml.Load(((ImportedFile)f).MemoryStream);
+                string date = s.Replace('_', '-');
+                XmlNodeList xmlLoads = xml.SelectNodes("//row[TIME_STAMP[contains(., '" + date+"')]]");
+                foreach ( XmlNode xmlNode in xmlLoads)
+                {
+                    Load load = new Load();
+                    load.Id = id++;
+                    load.Timestamp = DateTime.Parse(xmlNode.SelectSingleNode("TIME_STAMP").InnerText);
+                    load.ForecastValue = double.Parse(xmlNode.SelectSingleNode("FORECAST_VALUE").InnerText);
+                    load.MeasuredValue = double.Parse(xmlNode.SelectSingleNode("MEASURED_VALUE").InnerText);
+                    loads.Add(load);
+                }
+               
+
+            }
+            return loads;
         }
         private static void WriteAudit(Audit audit, string path)
         {

@@ -15,7 +15,7 @@ namespace Client
         static void Main(string[] args)
         {
             List<Audit> errors = new List<Audit>();
-            
+            List<string> ucitani= new List<string>();
             do
             {
                 Console.WriteLine("Unesite datum za koji ocekujete podatke! (format neka bude tipa yyyy_mm_dd) \nza izlazak komanda break!");
@@ -37,11 +37,12 @@ namespace Client
                     string folderPath = @"C:\Users\veljk\Desktop\zadatak_3\primer_kreiranih_csv_datoteka";
                     //Puna putanja do foldera sa CSV datotekama
                     string fullPath = Path.Combine(folderPath, fileName);
-
+                    
                     if (File.Exists(fullPath))
                     {
                         Console.WriteLine("Pronadjena csv datoteka za zadati datum");
-                        List<Load> recvMessage = new SendCommand().sendCommand(fullPath);
+                        ucitani.Add(command);
+                        List<Load> recvMessage = new SendCommand().sendCommand(fullPath, ucitani);
                         foreach (Load l in recvMessage)
                         {
                             Console.WriteLine($"id:{l.Id}, FValue:{l.ForecastValue}, MValue:{l.MeasuredValue} TimeStamp:{l.Timestamp}");
@@ -49,7 +50,7 @@ namespace Client
                         if (recvMessage.Count != 0)
                         {
                             Console.WriteLine("Ucitani su objekti za odogovarajuci datum");
-                            Console.WriteLine("Sledi cuvanje podataka u CSV datoteke");
+                            Console.WriteLine("Sledi cuvanje podataka u XML datoteke");
                             Console.WriteLine("Podaci su sacuvani u TBL_LOAD.xml i TBL_AUDIT.xml na lokaciji C:\\Users\\veljk\\Desktop\\zadatak_3\\Reading And Catching Consumption Data\\ReadingAndCatchingConsumptionData\\Server\\DataBase\\bin\\Debug\\");
 
                         }
