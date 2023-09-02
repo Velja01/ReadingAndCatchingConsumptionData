@@ -13,5 +13,8 @@ namespace Client
     {
         [OperationContract]
         List<Load> sendCommand(string path);
+
+        [OperationContract]
+        string WriteAudit(string fileName);
     }
 }

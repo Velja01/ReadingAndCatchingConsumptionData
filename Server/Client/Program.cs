@@ -15,6 +15,7 @@ namespace Client
         static void Main(string[] args)
         {
             List<Audit> errors = new List<Audit>();
+            
             do
             {
                 Console.WriteLine("Unesite datum za koji ocekujete podatke! (format neka bude tipa yyyy_mm_dd) \nza izlazak komanda break!");
@@ -49,7 +50,7 @@ namespace Client
                         {
                             Console.WriteLine("Ucitani su objekti za odogovarajuci datum");
                             Console.WriteLine("Sledi cuvanje podataka u CSV datoteke");
-                            Console.WriteLine("Podaci su sacuvani u TBL_LOAD.xml na lokaciji C:\\Users\\veljk\\Desktop\\zadatak_3\\Reading And Catching Consumption Data\\ReadingAndCatchingConsumptionData\\Server\\DataBase\\bin\\Debug\\");
+                            Console.WriteLine("Podaci su sacuvani u TBL_LOAD.xml i TBL_AUDIT.xml na lokaciji C:\\Users\\veljk\\Desktop\\zadatak_3\\Reading And Catching Consumption Data\\ReadingAndCatchingConsumptionData\\Server\\DataBase\\bin\\Debug\\");
 
                         }
                         else
@@ -61,6 +62,8 @@ namespace Client
                     else
                     {
                         Console.WriteLine("Nije pronadjena ni jedna csv datoteka za uneti datum");
+                        string recvMessage = new SendCommand().WriteAudit(command);
+                        Console.WriteLine(recvMessage);
                     }
                 }
                 else

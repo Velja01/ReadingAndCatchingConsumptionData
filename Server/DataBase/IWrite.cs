@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -12,6 +13,6 @@ namespace DataBase
     public interface IWrite
     {
         [OperationContract]
-        string WriteInXML(List<Load> loads, List<Audit> audits);
+        string WriteAuditError(MemoryStream ms);
     }
 }

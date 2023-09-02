@@ -17,16 +17,16 @@ namespace Server
             List<Load> list = new List<Load>();
             ChannelFactory<IRead> DataBaseRead = new ChannelFactory<IRead>("DataBase");
             IRead database_channel=DataBaseRead.CreateChannel();
-            List<Audit>errors=new List<Audit>();
-            list = database_channel.ReadingCsvFile(ms, out errors);
+            
+            list = database_channel.ReadingCsvFile(ms);
             return list;
         }
-        public string WriteCSV(List<Load> loads, List<Audit> audits)
+        public string WriteCSV(MemoryStream ms)
         {
             string recvMessage = "";
             ChannelFactory<IWrite> DataBaseWrite = new ChannelFactory<IWrite>("DataBase");
             IWrite database_channel = DataBaseWrite.CreateChannel();
-            recvMessage = database_channel.WriteInXML(loads, audits);
+            recvMessage = database_channel.WriteAuditError(ms);
             return recvMessage;
         }
     }

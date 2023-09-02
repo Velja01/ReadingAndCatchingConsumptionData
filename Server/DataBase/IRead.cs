@@ -13,6 +13,6 @@ namespace DataBase
     public interface IRead
     {
         [OperationContract]
-        List<Load> ReadingCsvFile(MemoryStream ms, out List<Audit> errors);
+        List<Load> ReadingCsvFile(MemoryStream ms);
     }
 }

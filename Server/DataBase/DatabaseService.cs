@@ -1,32 +1,35 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+
 namespace DataBase
 {
 
     public class DatabaseService : IRead, IWrite
     {
-        public List<Load> ReadingCsvFile(MemoryStream csv, out List<Audit> audits)
+
+        public List<Load> ReadingCsvFile(MemoryStream csv)
         {
-            audits = new List<Audit>();
+           
             List<Load> loads = new List<Load>();
 
             int line = 1;
+
+            DateTime currentTime=DateTime.Now;
+            TimeSpan dataTimeout=TimeSpan.FromMinutes(15);
 
             using (StreamReader csvStream = new StreamReader(csv))
             {
                 string csvData = csvStream.ReadToEnd();
                 string[] csvRows = csvData.Split('\n');
-
+                Dictionary<int, Load> map = new Dictionary<int, Load>();
                 // Preskačemo prvi red kako bismo izbegli zaglavlje (naslovnu liniju).
                 // Koristimo i Length - 1 kako bismo izbegli poslednji red koji može biti prazan.
                 string[] rows = csvRows.Skip(1).Take(csvRows.Length - 2).ToArray();
@@ -35,8 +38,7 @@ namespace DataBase
                 {
                     string[] split = row.Split(',');
 
-                    // Očekujemo da split ima četiri elementa: vremenski pečat, prognoziranu vrednost,
-                    // izmerenu vrednost i nešto drugo (možda indeks sata ili nešto slično).
+                    // Očekujemo da split ima četiri elementa
                     if (split.Length == 4)
                     {
                         if (DateTime.TryParse(split[0] + " " + split[1], out DateTime timestamp) &&
@@ -46,33 +48,23 @@ namespace DataBase
                             // Ako su svi podaci ispravno parsirani, kreiramo Load objekat i dodajemo ga u listu.
                             Load load = new Load(line, timestamp, forecastValue, measuredValue);
                             loads.Add(load);
-                            Audit error = new Audit(line, DateTime.Now, MESSAGETYPE.INFO, "Data has been successfully loaded");
-
+                            
+                            
                         }
-                        else
-                        {
-                            // U suprotnom, dodajemo grešku u listu grešaka.
-                            //Audit error = new Audit(line, DateTime.Now, MESSAGETYPE.ERROR, "Invalid data format");
-                            //errors.Add(error);
-                        }
+                        
                     }
-                    else
-                    {
-                        // Ako split nema četiri elementa, dodajemo grešku u listu grešaka.
-                        //Audit error = new Audit(line, DateTime.Now, MESSAGETYPE.ERROR, "Invalid number of columns");
-                        //errors.Add(error);
-                    }
+                    
 
                     line++; // Povećavamo brojač linija.
                 }
             }
-            audits.Add(new Audit(line, DateTime.Now, MESSAGETYPE.INFO, "Podaci uspesno procitani i prosledjeni"));
-            string recvMessage = WriteInXML(loads, audits);
+            Audit a1=(new Audit(line, DateTime.Now, MESSAGETYPE.INFO, "Podaci uspesno procitani i prosledjeni"));
+            string recvMessage = WriteInXML(loads, a1);
             return loads; // Vraćamo listu Load objekata.
         }
-        public string WriteInXML(List<Load> loads, List<Audit> audits)
+        public string WriteInXML(List<Load> loads, Audit audit)
         {
-            WriteAudit(audits, ConfigurationManager.AppSettings["DataBaseAudit"]);
+            WriteAudit(audit, ConfigurationManager.AppSettings["DataBaseAudit"]);
             return WriteLoad(loads, ConfigurationManager.AppSettings["DataBaseLoads"]);
         }
         private static string WriteLoad(List<Load> loads, string path)
@@ -126,11 +118,20 @@ namespace DataBase
             return "Izvrsen je upis objekata u TBL_LOAD.xml";
 
         }
-        private static void WriteAudit(List<Audit> audits, string path)
+        private static void WriteAudit(Audit audit, string path)
         {
             using (IImportedFile f = new DatabaseService().ReadFile(path))
             {
                 XDocument xmlf = XDocument.Load(((ImportedFile)f).MemoryStream);
+
+                // Provera da li postoji "STAVKE" element
+                XElement stavkeElement = xmlf.Root.Element("STAVKE");
+                if (stavkeElement == null)
+                {
+                    // Ako ne postoji, kreirajte ga i dodajte u korenski element
+                    stavkeElement = new XElement("STAVKE");
+                    xmlf.Root.Add(stavkeElement);
+                }
 
                 var elements = xmlf.Descendants("ID");
                 int maxRows = 0;
@@ -146,21 +147,37 @@ namespace DataBase
                         }
                     }
                 }
-                if (audits.Count == 0)
+
+                if (audit.MessageType == MESSAGETYPE.INFO)
                 {
-                    var items = xmlf.Element("STAVKE");
+
+                    var items = stavkeElement; // Sada koristimo "STAVKE" element
                     var insertElement = new XElement("row");
 
                     insertElement.Add(new XElement("ID", ++maxRows));
-                    insertElement.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM--dd HH:mm:ss.fff")));
+                    insertElement.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")));
                     insertElement.Add(new XElement("MESSAGE_TYPE", "Info"));
                     insertElement.Add(new XElement("MESSAGE", "Podaci uspesno procitani i prosledjeni"));
 
                     items.Add(insertElement);
                     xmlf.Save(ConfigurationManager.AppSettings["DataBaseAudit"]);
                 }
+                else
+                {
+                    var items = stavkeElement; // Sada koristimo "STAVKE" element
+                    var insertElement = new XElement("row");
+
+                    insertElement.Add(new XElement("ID", ++maxRows));
+                    insertElement.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                    insertElement.Add(new XElement("MESSAGE_TYPE", "Error"));
+                    insertElement.Add(new XElement("MESSAGE", "U bazi podataka ne postoje podaci za datum "+audit.Message));
+
+                    items.Add(insertElement);
+                    xmlf.Save(ConfigurationManager.AppSettings["DataBaseAudit"]);
+                }
 
             }
+
         }
         public IImportedFile ReadFile(string path)
         {
@@ -198,6 +215,13 @@ namespace DataBase
 
         }
 
-
+        public string WriteAuditError(MemoryStream ms)
+        {
+            ms.Position = 0;
+            XmlSerializer serializer = new XmlSerializer(typeof(Audit));
+            Audit a1=(Audit)serializer.Deserialize(ms);
+            WriteAudit(a1, ConfigurationManager.AppSettings["DataBaseAudit"]);
+            return "Podaci su upisani u TBL_AUDIT.xml";
+        }
     }
 }

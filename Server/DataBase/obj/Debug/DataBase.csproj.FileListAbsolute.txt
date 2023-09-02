@@ -22,3 +22,5 @@ C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\Dat
 C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.csproj.CopyComplete
 C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.exe
 C:\Users\veljk\Desktop\staroZ3\ReadingAndCatchingConsumptionData-main\Server\DataBase\obj\Debug\DataBase.pdb
+C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\DataBase\bin\Debug\Newtonsoft.Json.dll
+C:\Users\veljk\Desktop\zadatak_3\Reading And Catching Consumption Data\ReadingAndCatchingConsumptionData\Server\DataBase\bin\Debug\Newtonsoft.Json.xml
